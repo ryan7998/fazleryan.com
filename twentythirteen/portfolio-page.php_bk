@@ -1,0 +1,20 @@
+<?php
+/*
+Template Name: Page Of Posts
+*/
+/* This example is for a child theme of Twenty Thirteen: 
+*  You'll need to adapt it the HTML structure of your own theme.
+*/
+get_header(); ?>
+	<div id="primary" class="content-area">
+		<div id="content" class="site-content" role="main">
+        <?php 
+			$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;			$args = array(
+				'category_name' => 'portfolio', 
+				'paged' => $paged,				'post_status'      => 'publish'
+			);
+			$query = new WP_Query( $args );			//$query = $Q->get_posts($args);			//print_r($query);			//if ( $query->have_posts() ) : while ( $query->have_posts() ) : $query->the_post(); 			while ( $query->have_posts() ) :			$query->the_post();		?>					 <div class="post">		 <!-- Display the Title as a link to the Post's permalink. -->		 <h2><a href="<?php the_permalink() ?>" rel="bookmark" title="Permanent Link to <?php the_title_attribute(); ?>"><?php the_title(); ?></a></h2>		 <a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"><?php the_post_thumbnail('medium'); ?></a>		  <div class="entry">			<?php //the_content('read more'); ?>			<?php the_excerpt(); ?>					  </div>		 </div> <!-- closes the first div box -->		 <?php 			endwhile; 			wp_reset_postdata();		 ?>		 		 <?php //endif; ?>			
+		<?php twentythirteen_paging_nav(); ?>
+		</div><!-- #content -->
+	</div><!-- #primary -->
+<?php get_footer(); ?>
